@@ -6,14 +6,14 @@
         <h3 v-bind:class="[$store.state.sideCollapsed  && !$store.state.sideCollapsedHover ? activeClass : fwLink]">Fugeware</h3>
       </div>
     </b-nav-text>
-    <Divider />
+    <Divider style="width: 90%" />
     <b-nav-text class="b-nav-item b-nav-text">
         <div class="nav-link">
           <i class="fas fa-user-cog icon"></i>
           <h4 v-bind:class="[$store.state.sideCollapsed  && !$store.state.sideCollapsedHover ? activeClass : fwLink]">Preston Doris</h4>
         </div>
     </b-nav-text>
-    <Divider />
+    <Divider style="width: 100%" />
     <b-nav-item class="b-nav-item b-nav">
       <router-link class="nav-link " to="/">
         <i class="fas fa-chart-pie icon"></i>
@@ -81,9 +81,7 @@ img {
   margin: .5em 0 .5em 0;
   text-align: left;
   width: 100%;
-}
-.active {
-  display: none;
+  line-height: 32px;
 }
 .b-nav:hover {
   background-color: white;
@@ -96,6 +94,9 @@ img {
   margin:0;
   vertical-align: middle;
   display: inline-block;
+}
+.active {
+  display: none;
 }
 .nav-link {
   color: #2C3E50;
