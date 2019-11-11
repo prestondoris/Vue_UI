@@ -1,6 +1,6 @@
 <template>
   <nav id="navbar" class="navbar navbar-expand-lg navbar-light">
-    <b-button id="collapseSideBtn" class="fw-button" v-on:click="collapseSideMenu()" variant="outline-secondary"><i  v-bind:class="[sideCollapseBtn]"></i></b-button>
+    <b-button id="collapseSideBtn" class="fw-button" v-on:click="changeSideMenuWidth()" variant="outline-secondary"><i  v-bind:class="[sideCollapseBtn]"></i></b-button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
@@ -19,21 +19,20 @@
 export default {
   data: function () {
     return {
-      sideCollapseBtn: 'fas fa-bars',
-      collapsed: false
+      sideCollapseBtn: 'fas fa-bars'
     }
   },
   props: ['page'],
   methods: {
-    collapseSideMenu () {
-      if (this.collapsed) {
+    changeSideMenuWidth () {
+      if (this.$store.state.sideCollapsed) {
         this.sideCollapseBtn = 'fas fa-bars'
-        this.collapsed = false
-        this.$emit('sideMenuBtnClicked', 250)
+        this.$store.state.sideCollapsed = false
+        this.$store.state.sideBarWidth = 250
       } else {
         this.sideCollapseBtn = 'fas fa-ellipsis-v'
-        this.collapsed = true
-        this.$emit('sideMenuBtnClicked', 90)
+        this.$store.state.sideCollapsed = true
+        this.$store.state.sideBarWidth = 90
       }
     }
   }

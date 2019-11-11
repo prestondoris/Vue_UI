@@ -1,22 +1,45 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Dashboard from '../views/Dashboard.vue'
 
 Vue.use(VueRouter)
 const routes = [
   {
-    path: `{basePath}/`,
-    name: 'home',
-    component: Home,
-    props: { page: 'Home' }
+    path: '/',
+    name: 'overview',
+    component: Dashboard
   },
   {
-    path: `{basePath}/about`,
-    name: 'about',
+    path: '/brands',
+    name: 'brands',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Brands.vue')
+  },
+  {
+    path: '/brew',
+    name: 'brew',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Brew.vue')
+  },
+  {
+    path: '/fermentations',
+    name: 'fermentations',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Fermentations.vue')
+  },
+  {
+    path: '/batches',
+    name: 'batches',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Batches.vue')
   }
 ]
 
@@ -25,6 +48,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-process.env.BASE_URL = '/p/app'
-console.log(process.env.BASE_URL)
+
 export default router
