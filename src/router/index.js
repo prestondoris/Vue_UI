@@ -3,15 +3,15 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
-
 const routes = [
   {
-    path: '/',
+    path: `{basePath}/`,
     name: 'home',
-    component: Home
+    component: Home,
+    props: { page: 'Home' }
   },
   {
-    path: '/about',
+    path: `{basePath}/about`,
     name: 'about',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -25,5 +25,6 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
+process.env.BASE_URL = '/p/app'
+console.log(process.env.BASE_URL)
 export default router

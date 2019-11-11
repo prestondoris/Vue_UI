@@ -1,11 +1,11 @@
 <template>
   <div id="appWhole">
-    <SideBar id="appMenu" />
-    <div id="appBody" v-bind:style="{
+    <SideBar id="appMenu"  v-bind:style="{ height: appSideHeight + 'px'}"/>
+    <div  id="appBody" v-bind:style="{
       width: appBodyWidth + 'px',
       height: appBodyHeight + 'px'
       }">
-      <NavBar />
+      <nav-bar v-bind:page=$route.name />
       <router-view/>
     </div>
   </div>
@@ -23,14 +23,19 @@ export default {
   },
   data: function () {
     return {
-      msg: 'Hello World! This is a Event listener test.',
       windowWidth: 0,
       windowHeight: 0,
       appSideWidth: 250,
+      appSideHeight: 0,
       appBodyWidth: 0,
       appBodyHeight: 0
     }
   },
+  // computed: {
+  //   getPageName: function() {
+  //     this.$route
+  //   }
+  // },
   beforeMount () {
     this.getWindowWidth()
     this.getWindowHeight()
@@ -49,6 +54,11 @@ export default {
     getWindowHeight (event) {
       this.windowHeight = document.documentElement.clientHeight
       this.appBodyHeight = this.windowHeight
+      this.appSideHeight = this.windowHeight
+    },
+    setSideMenuWidth (value) {
+      console.log(value)
+      this.appSideWidth = value
     }
   }
 }
@@ -57,11 +67,10 @@ export default {
 <style scoped>
   #appMenu {
     width: 250px;
-    position: fixed;
+    position: relative;
     float: left;
-    border: solid black 1px;
     height: 100%;
-    background-color: #41B581;
+    background-color: #41B883;
   }
 
   #appBody {
