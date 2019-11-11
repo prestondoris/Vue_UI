@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     sideBarWidth: 250,
-    sideCollapsed: false
+    sideCollapsed: false,
+    sideCollapsedHover: false
   },
   mutations: {
   },

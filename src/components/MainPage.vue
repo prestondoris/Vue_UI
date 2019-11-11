@@ -1,6 +1,6 @@
 <template>
   <div id="appWhole">
-    <SideBar id="appMenu" @click="mouseover" @mouseleave="mouseleave" v-bind:style="{ width: getSideMenuWidth + 'px' ,height: appSideHeight + 'px'}"/>
+    <SideBar id="appMenu" v-on:mouseover.native="mouseover" v-on:mouseleave.native="mouseleave" v-bind:style="{ width: getSideMenuWidth + 'px' ,height: appSideHeight + 'px'}"/>
     <div  id="appBody" v-bind:style="{
       width: appBodyWidth + 'px',
       height: appBodyHeight + 'px'
@@ -25,10 +25,10 @@ export default {
     return {
       windowWidth: 0,
       windowHeight: 0,
+      appSideWidth: this.$store.state.sideBarWidth,
       appSideHeight: 0,
       appBodyWidth: 0,
-      appBodyHeight: 0,
-      hover: false
+      appBodyHeight: 0
     }
   },
   computed: {
@@ -37,12 +37,17 @@ export default {
       ans[0] = ans[0].toUpperCase()
       return ans.join('')
     },
-    getSideMenuWidth: function () {
-      if (!this.hover) {
-        this.getWindowWidth()
-        return this.$store.state.sideBarWidth
-      } else {
-        return this.$store.state.sideBarWidth + 160
+    getSideMenuWidth: {
+      get: function () {
+        if (this.$store.state.sideCollapsedHover) {
+          return this.appSideWidth
+        } else {
+          this.getWindowWidth()
+          return this.appSideWidth
+        }
+      },
+      set: function (value) {
+        this.appSideWidth = value
       }
     }
   },
@@ -59,7 +64,8 @@ export default {
   methods: {
     getWindowWidth (event) {
       this.windowWidth = document.documentElement.clientWidth
-      this.appBodyWidth = this.windowWidth - this.$store.state.sideBarWidth
+      this.appSideWidth = this.$store.state.sideBarWidth
+      this.appBodyWidth = this.windowWidth - this.appSideWidth
     },
     getWindowHeight (event) {
       this.windowHeight = document.documentElement.clientHeight
@@ -67,14 +73,16 @@ export default {
       this.appSideHeight = this.windowHeight
     },
     mouseover () {
-      this.hover = true
-      console.log('test')
-      this.getSideMenuWidth()
+      this.$store.state.sideCollapsedHover = true
+      if (this.$store.state.sideCollapsed) {
+        this.getSideMenuWidth = this.$store.state.sideBarWidth + 160
+      }
     },
     mouseleave () {
-      this.hover = false
-      console.log(this.hover)
-      this.getSideMenuWidth()
+      this.$store.state.sideCollapsedHover = false
+      if (this.$store.state.sideCollapsed) {
+        this.getSideMenuWidth = this.$store.state.sideBarWidth
+      }
     }
   }
 }
@@ -85,6 +93,7 @@ export default {
   position: relative;
   float: left;
   background-color: #41B883;
+  z-index: 100;
 }
 #appBody {
   position: fixed;
