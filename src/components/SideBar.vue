@@ -44,6 +44,12 @@
         <h5 v-bind:class="[$store.state.sideCollapsed  && !$store.state.sideCollapsedHover ? activeClass : fwLink]">Batches</h5>
       </router-link>
     </b-nav-item>
+    <b-nav-item class="b-nav-item b-nav">
+      <router-link class="nav-link" to="/components">
+        <i class="fas fa-clipboard-list icon"></i>
+        <h5 v-bind:class="[$store.state.sideCollapsed  && !$store.state.sideCollapsedHover ? activeClass : fwLink]">Components</h5>
+      </router-link>
+    </b-nav-item>
   </b-nav>
 </template>
 
